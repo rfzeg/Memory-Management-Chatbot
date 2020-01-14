@@ -20,14 +20,14 @@ private:
 
     // data handles (not owned)
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
-    ChatBot *_chatBot;
+    ChatBot *_chatBot; // handle to ChatBot object, which moves from node to node
 
     ////
     //// EOF STUDENT CODE
 
     // proprietary members
     int _id;
-    std::vector<std::string> _answers;
+    std::vector<std::string> _answers; // list of answers given to the user upon reaching the node
 
 public:
     // constructor / destructor

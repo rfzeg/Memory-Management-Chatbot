@@ -11,12 +11,12 @@ class ChatBot
 {
 private:
     // data handles (owned)
-    wxBitmap *_image; // avatar image
+    wxBitmap *_image; // Chatbot class is responsible of managing the avatar image in the heap
 
     // data handles (not owned)
     GraphNode *_currentNode;
-    GraphNode *_rootNode;
-    ChatLogic *_chatLogic;
+    GraphNode *_rootNode; // used to reset the chatbot to the start of the network once it reaches the end of the convesation tree
+    ChatLogic *_chatLogic; // for being able to pass messages back to the graphical user interface
 
     // proprietary functions
     int ComputeLevenshteinDistance(std::string s1, std::string s2);
@@ -40,7 +40,7 @@ public:
     wxBitmap *GetImageHandle() { return _image; }
 
     // communication
-    void ReceiveMessageFromUser(std::string message);
+    void ReceiveMessageFromUser(std::string message); // generates the response typed by the user to be able to send it back to the chat logic
 };
 
 #endif /* CHATBOT_H_ */

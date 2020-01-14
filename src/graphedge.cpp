@@ -1,3 +1,8 @@
+/*
+ A class used to represent an Edge
+ Edge objects represent the information associated to a single edge of the graph based conversation
+*/
+
 #include "graphnode.h"
 #include "graphedge.h"
 

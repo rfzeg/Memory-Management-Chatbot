@@ -1,3 +1,8 @@
+/*
+ Contains classes used to represent the graphical user interface
+ These classes are tailored/specific to interface with wxWidget
+*/
+
 #include <wx/filename.h>
 #include <wx/colour.h>
 #include <wx/image.h>
@@ -16,9 +21,11 @@ IMPLEMENT_APP(ChatBotApp);
 std::string dataPath = "../";
 std::string imgBasePath = dataPath + "images/";
 
+// event that starts the entire program
 bool ChatBotApp::OnInit()
 {
     // create window with name and show it
+    // combine declaration of pointer and assignment
     ChatBotFrame *chatBotFrame = new ChatBotFrame(wxT("Udacity ChatBot"));
     chatBotFrame->Show(true);
 
@@ -123,7 +130,7 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
     // pass pointer to chatbot dialog so answers can be displayed in GUI
     _chatLogic->SetPanelDialogHandle(this);
 
-    // load answer graph from file
+    // load the entire conversation tree from file that defines nodes and edges
     _chatLogic->LoadAnswerGraphFromFile(dataPath + "src/answergraph.txt");
 
     ////

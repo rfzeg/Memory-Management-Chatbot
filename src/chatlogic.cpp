@@ -1,3 +1,9 @@
+/*
+ A class used to represent the chat logic
+ Serves as an intermediary class between the user interface and the chatbot class from which the answer has to be retrieved
+ Constructs the entire network, sends messages between user and chabot
+*/
+
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -74,6 +80,7 @@ void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T 
 void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 {
     // load file with answer graph elements
+    // constructs the entire conversation tree
     std::ifstream file(filename);
 
     // check for file availability and process it line by line

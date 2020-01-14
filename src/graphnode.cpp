@@ -1,3 +1,9 @@
+/*
+ A class used to represent a Node
+ Node objects represent the information associated to a single node of the graph based conversation
+ It contains the answer given to the user upon reaching that node
+*/
+
 #include "graphedge.h"
 #include "graphnode.h"
 

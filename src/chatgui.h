@@ -6,6 +6,7 @@
 class ChatLogic; // forward declaration
 
 // middle part of the window containing the dialog between user and chatbot
+// holds the elements required for displaying the dialog between user and chatbot
 class ChatBotPanelDialog : public wxScrolledWindow
 {
 private:
@@ -41,7 +42,7 @@ public:
     DECLARE_EVENT_TABLE()
 };
 
-// dialog item shown in ChatBotPanelDialog
+// dialog item (either user or chatbot item) shown in ChatBotPanelDialog
 class ChatBotPanelDialogItem : public wxPanel
 {
 private:

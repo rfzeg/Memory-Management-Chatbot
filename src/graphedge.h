@@ -15,7 +15,7 @@ private:
 
     // proprietary members
     int _id;
-    std::vector<std::string> _keywords; // list of topics associated with this edge
+    std::vector<std::string> _keywords; // list of topics related to this edge beeing selected
     
 
 public:
