@@ -4,6 +4,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(chatbot_project)
 
+find_package(wxWidgets REQUIRED COMPONENTS core base)
+include(${wxWidgets_USE_FILE})
+
 # Add dirs from external packages
 include_directories(
     include
@@ -17,3 +20,5 @@ file(GLOB SOURCES src/*.cpp)
 # Add project executable
 add_executable(chatbot_project ${SOURCES})
 target_link_libraries(chatbot_project ${Example_LIBRARIES})
+target_link_libraries(chatbot_project ${wxWidgets_LIBRARIES})
+target_include_directories(chatbot_project PRIVATE ${wxWidgets_INCLUDE_DIRS})
