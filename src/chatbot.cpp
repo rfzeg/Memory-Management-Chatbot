@@ -30,9 +30,12 @@ ChatBot::ChatBot(std::string filename)
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
+//// Implementation of rule of five
+
+// 1 : destructor
 ChatBot::~ChatBot()
 {
-    std::cout << "ChatBot Destructor" << std::endl;
+    std::cout << "Deleting instance of Chatbot at " << this << std::endl;
 
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
@@ -42,11 +45,76 @@ ChatBot::~ChatBot()
     }
 }
 
-//// STUDENT CODE
-////
+// 2 : copy constructor
+ChatBot::ChatBot(const ChatBot &source)
+{
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
 
-////
-//// EOF STUDENT CODE
+    std::cout << "Copying content of Chatbot instance (via constructor) " << &source << " to instance " << this << std::endl;
+}
+
+// 3 : copy assignment operator
+ChatBot& ChatBot::operator=(const ChatBot &source)
+{
+    // TO-DO: Self-assignment detection
+       
+    std::cout << "Copying content of Chatbot instance (via assignment) " << &source << " to instance " << this << std::endl;
+    // Release any resource we're holding (Attention: wxWidgets used NULL and not nullptr)
+ 	if(_image != NULL)
+    {
+        delete _image;
+        _image = NULL;
+    }
+    _image = source._image;
+	_currentNode = source._currentNode;
+	_rootNode = source._rootNode;
+	_chatLogic = source._chatLogic;
+}
+
+
+// 4 : move constructor
+// The goal of the move constructor is to move ownership of the resources from one object to another
+ChatBot::ChatBot(ChatBot &&source) 
+{
+    std::cout << "Moving Chatbot instance (via constructor) " << &source << " to instance " << this << std::endl;
+
+    _image = source._image;
+    source._image = NULL; // set the source pointer to null
+	_currentNode = source._currentNode;
+    source._currentNode = nullptr;
+	_rootNode = source._rootNode;
+    source._rootNode = nullptr;
+	_chatLogic = source._chatLogic;
+    source._chatLogic = nullptr;
+}
+
+// 5 : move assignment operator
+// The goal of the move assignment is to move ownership of the resources from one object to another
+ChatBot& ChatBot::operator=(ChatBot &&source) 
+{
+    // TO-DO: Self-assignment detection
+
+    std::cout << "Moving Chatbot instance (via assignment)" << &source << " to instance " << this << std::endl;
+    // Release any resource we're holding (Attention: wxWidgets used NULL and not nullptr)
+	if(_image != NULL)
+    {
+        delete _image;
+        _image = NULL;
+    }
+
+    _image = source._image;
+    source._image = NULL;
+	_currentNode = source._currentNode;
+    source._currentNode = nullptr;
+	_rootNode = source._rootNode;
+    source._rootNode = nullptr;
+	_chatLogic = source._chatLogic;
+    source._chatLogic = nullptr;
+}  
+//// End of implementation of rule of five
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {
