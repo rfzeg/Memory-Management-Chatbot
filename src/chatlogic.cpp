@@ -41,12 +41,6 @@ ChatLogic::~ChatLogic()
     // delete chatbot instance
     delete _chatBot;
 
-    // delete all edges
-    for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
-    {
-        delete *it;
-    }
-
     ////
     //// EOF STUDENT CODE
 }
@@ -165,19 +159,19 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             // get iterator on incoming and outgoing node via ID search
                             auto parentNode = std::find_if(_nodes.begin(), _nodes.end(), [&parentToken](std::unique_ptr<GraphNode>& node) { return node->GetID() == std::stoi(parentToken->second); });
                             auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](std::unique_ptr<GraphNode>& node) { return node->GetID() == std::stoi(childToken->second); });
-
-                            // create new edge
-                            GraphEdge *edge = new GraphEdge(id);
-                            edge->SetChildNode(childNode->get());
-                            edge->SetParentNode(parentNode->get());
-                            _edges.push_back(edge);
-
+                            // initialize a unique pointer that owns a section of dynamic memory containing a GraphEdge object
+                            std::unique_ptr<GraphEdge> graphEdgePtr = std::make_unique<GraphEdge>(id);
+                            // store reference to child and parent nodes in GraphEdge object
+                            graphEdgePtr->SetChildNode((*childNode).get());
+                            graphEdgePtr->SetParentNode((*parentNode).get());
                             // find all keywords for current node
-                            AddAllTokensToElement("KEYWORD", tokens, *edge);
+                            AddAllTokensToElement("KEYWORD", tokens, *graphEdgePtr);
 
-                            // store reference in child node and parent node
-                            (*childNode)->AddEdgeToParentNode(edge);
-                            (*parentNode)->AddEdgeToChildNode(edge);
+                            // store reference in child node
+                            (*childNode)->AddEdgeToParentNode(graphEdgePtr.get());
+                            // assign ownership of edge to parent node
+                            // each graphNode only owns the outgoing edges leading to children in the graph
+                            (*parentNode)->AddEdgeToChildNode(std::move(graphEdgePtr));
                         }
 
                         ////
