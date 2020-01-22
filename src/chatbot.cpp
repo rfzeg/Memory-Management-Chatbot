@@ -79,7 +79,7 @@ ChatBot& ChatBot::operator=(const ChatBot &source)
 // The goal of the move constructor is to move ownership of the resources from one object to another
 ChatBot::ChatBot(ChatBot &&source) 
 {
-    std::cout << "Moving Chatbot instance (via constructor) " << &source << " to instance " << this << std::endl;
+    std::cout << "\n" << "Moving Chatbot instance (via constructor) " << &source << " to instance " << this << std::endl;
 
     _image = source._image;
     source._image = NULL; // set the source pointer to null
@@ -97,7 +97,7 @@ ChatBot& ChatBot::operator=(ChatBot &&source)
 {
     // TO-DO: Self-assignment detection
 
-    std::cout << "Moving Chatbot instance (via assignment)" << &source << " to instance " << this << std::endl;
+    std::cout << "Moving Chatbot instance (via assignment) " << &source << " to instance " << this << std::endl;
     // Release any resource we're holding (Attention: wxWidgets used NULL and not nullptr)
 	if(_image != NULL)
     {
@@ -161,6 +161,8 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
 
+    // update chatBot for chatLogic
+    _chatLogic->SetChatbotHandle(this);
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);
 }
