@@ -35,7 +35,7 @@ ChatBot::ChatBot(std::string filename)
 // 1 : destructor
 ChatBot::~ChatBot()
 {
-    std::cout << "Deleting instance of Chatbot at " << this << std::endl;
+    std::cout << "ChatBot Destructor" << std::endl;
 
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
@@ -53,7 +53,7 @@ ChatBot::ChatBot(const ChatBot &source)
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
 
-    std::cout << "Copying content of Chatbot instance (via constructor) " << &source << " to instance " << this << std::endl;
+    std::cout << "ChatBot Copy Constructor" << std::endl;
 }
 
 // 3 : copy assignment operator
@@ -61,7 +61,7 @@ ChatBot& ChatBot::operator=(const ChatBot &source)
 {
     // TO-DO: Self-assignment detection
        
-    std::cout << "Copying content of Chatbot instance (via assignment) " << &source << " to instance " << this << std::endl;
+    std::cout << "ChatBot Copy Assignment Operator" << std::endl;
     // Release any resource we're holding (Attention: wxWidgets used NULL and not nullptr)
  	if(_image != NULL)
     {
@@ -79,7 +79,7 @@ ChatBot& ChatBot::operator=(const ChatBot &source)
 // The goal of the move constructor is to move ownership of the resources from one object to another
 ChatBot::ChatBot(ChatBot &&source) 
 {
-    std::cout << "\n" << "Moving Chatbot instance (via constructor) " << &source << " to instance " << this << std::endl;
+    std::cout << "ChatBot Move Constructor" << std::endl;
 
     _image = source._image;
     source._image = NULL; // set the source pointer to null
@@ -97,7 +97,7 @@ ChatBot& ChatBot::operator=(ChatBot &&source)
 {
     // TO-DO: Self-assignment detection
 
-    std::cout << "Moving Chatbot instance (via assignment) " << &source << " to instance " << this << std::endl;
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
     // Release any resource we're holding (Attention: wxWidgets used NULL and not nullptr)
 	if(_image != NULL)
     {
